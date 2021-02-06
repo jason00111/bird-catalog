@@ -1,0 +1,101 @@
+service: bird-catalog
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-west-2
+  environment:
+    TABLE_NAME: birds
+    IMAGES_BUCKET_NAME: bird-images-xxx
+    WEBSITE_BUCKET_NAME: bird-catalog
+  httpApi:
+    cors: true
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TABLE_NAME}
+    - Effect: Allow
+      Action:
+        - "s3:PutObject"
+        - "s3:PutObjectAcl"
+      Resource: arn:aws:s3:::${self:provider.environment.IMAGES_BUCKET_NAME}/*
+
+plugins:
+  - fullstack-serverless
+
+custom:
+  fullstack:
+    bucketName: ${self:provider.environment.WEBSITE_BUCKET_NAME}
+    distributionFolder: client/build
+    singlePageApp: true
+
+functions:
+  list:
+    handler: api/birds/list.list
+    events:
+      - http:
+          path: api/birds
+          method: get
+          cors: true
+  create:
+    handler: api/birds/create.create
+    events:
+      - http:
+          path: api/birds
+          method: post
+          cors: true
+  update:
+    handler: api/birds/update.update
+    events:
+      - http:
+          path: api/birds/{id}
+          method: put
+          cors: true
+  createUploadURL:
+    handler: api/createUploadURL.createUploadURL
+    events:
+      - http:
+          path: api/createUploadURL/{mimeType}
+          method: get
+          cors: true
+
+resources:
+  Resources:
+    birdsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    S3BucketBirds:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.IMAGES_BUCKET_NAME}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedHeaders:
+                - "*"
+              AllowedMethods:
+                - GET
+                - PUT
+              AllowedOrigins:
+                - "*"
+
+package:
+  exclude:
+    - client/**
+    - "*.ts"
+  include:
+    - client/build/**
