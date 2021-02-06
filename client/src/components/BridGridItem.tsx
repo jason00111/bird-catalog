@@ -57,7 +57,7 @@ function BirdGridItem({
   const classes = useStyles();
 
   return (
-    <Grid item key={bird.id} sm={12} md={6} className={classes.gridItem}>
+    <Grid item key={bird.id}  className={classes.gridItem}>
       <div className={classes.imageContainer}>
         <img
           src={bird.img}
