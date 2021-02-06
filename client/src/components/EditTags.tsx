@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
     transition: "unset",
-    marginLeft: 0,
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(0.7),
   },
   checkBox: {
     padding: 0,

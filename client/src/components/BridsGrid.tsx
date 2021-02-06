@@ -23,10 +23,17 @@ interface BirdsGridProps {
   birds: Bird[];
   allTags: Tags;
   setAllTags: Dispatch<SetStateAction<Tags>>;
+  selectTag: (tag: string) => void;
   syncWithDB: SyncWithDB;
 }
 
-function BirdsGrid({ birds, allTags, setAllTags, syncWithDB }: BirdsGridProps) {
+function BirdsGrid({
+  birds,
+  allTags,
+  setAllTags,
+  selectTag,
+  syncWithDB,
+}: BirdsGridProps) {
   const [showTags, setShowTags] = useState(true);
 
   const isSmallScreen: boolean = useMediaQuery((theme: Theme) =>
@@ -48,6 +55,7 @@ function BirdsGrid({ birds, allTags, setAllTags, syncWithDB }: BirdsGridProps) {
               syncWithDB={syncWithDB}
               showTags={showTags}
               setShowTags={setShowTags}
+              selectTag={selectTag}
             />
           ))}
         </Grid>
@@ -63,6 +71,7 @@ function BirdsGrid({ birds, allTags, setAllTags, syncWithDB }: BirdsGridProps) {
                 syncWithDB={syncWithDB}
                 showTags={showTags}
                 setShowTags={setShowTags}
+                selectTag={selectTag}
               />
             ))}
           </Grid>
@@ -76,6 +85,7 @@ function BirdsGrid({ birds, allTags, setAllTags, syncWithDB }: BirdsGridProps) {
                 syncWithDB={syncWithDB}
                 showTags={showTags}
                 setShowTags={setShowTags}
+                selectTag={selectTag}
               />
             ))}
           </Grid>

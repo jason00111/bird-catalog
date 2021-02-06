@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) =>
       position: "relative",
     },
     tagsContainer: {
-      "& > *": {
-        margin: theme.spacing(0.2),
-      },
       position: "absolute",
       left: 0,
       bottom: 0,
@@ -30,6 +27,9 @@ const useStyles = makeStyles((theme) =>
       alignItems: "center",
       margin: theme.spacing(1),
     },
+    chip: {
+      margin: theme.spacing(0.2),
+    }
   })
 );
 
@@ -37,6 +37,7 @@ interface BirdGridItemProps {
   bird: Bird;
   allTags: Tags;
   setAllTags: Dispatch<SetStateAction<Tags>>;
+  selectTag: (tag: string) => void;
   syncWithDB: SyncWithDB;
   showTags: boolean;
   setShowTags: Dispatch<SetStateAction<boolean>>;
@@ -46,6 +47,7 @@ function BirdGridItem({
   bird,
   allTags,
   setAllTags,
+  selectTag,
   syncWithDB,
   showTags,
   setShowTags,
@@ -57,7 +59,7 @@ function BirdGridItem({
   const classes = useStyles();
 
   return (
-    <Grid item key={bird.id}  className={classes.gridItem}>
+    <Grid item key={bird.id} className={classes.gridItem}>
       <div className={classes.imageContainer}>
         <img
           src={bird.img}
@@ -74,7 +76,13 @@ function BirdGridItem({
               setAllTags={setAllTags}
             />
             {bird.tags.map((tag) => (
-              <Chip key={tag} label={tag} size="small" />
+              <Chip
+                key={tag}
+                label={tag}
+                size="small"
+                onClick={() => selectTag(tag)}
+                className={classes.chip}
+              />
             ))}
           </div>
         </Fade>

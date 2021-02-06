@@ -2,12 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Chip, makeStyles, Slide, useScrollTrigger } from "@material-ui/core";
 import { JustUploadedBirdId, Tags } from "../App";
 
-// Allow multiple tags to be selected at once
-const MULTI_SELECT = false;
-
 const useStyles = makeStyles((theme) => {
-  // console.log(theme);
-
   return {
     root: {
       display: "flex",
@@ -34,7 +29,7 @@ const useStyles = makeStyles((theme) => {
 interface FiltersProps {
   allTags: Tags;
   selectedTags: Tags;
-  setSelectedTags: Dispatch<SetStateAction<Tags>>;
+  selectTag: (tag: string) => void;
   showAll: boolean;
   setShowAll: Dispatch<SetStateAction<boolean>>;
   justUploadedBirdId: JustUploadedBirdId;
@@ -44,32 +39,12 @@ interface FiltersProps {
 function Filters({
   allTags,
   selectedTags,
-  setSelectedTags,
+  selectTag,
   showAll,
   setShowAll,
   justUploadedBirdId,
   setJustUploadedBirdId,
 }: FiltersProps) {
-  function handleTagClick(tag: string) {
-    setShowAll(false);
-    setJustUploadedBirdId(null);
-
-    if (MULTI_SELECT) {
-      if (selectedTags.has(tag)) {
-        setSelectedTags((prevSelectedTags) => {
-          prevSelectedTags.delete(tag);
-
-          return new Set(selectedTags);
-        });
-      } else {
-        selectedTags.add(tag);
-        setSelectedTags(new Set(selectedTags));
-      }
-    } else {
-      setSelectedTags(new Set([tag]));
-    }
-  }
-
   function handleShowAllClick() {
     if (justUploadedBirdId) {
       setShowAll(true);
@@ -99,7 +74,7 @@ function Filters({
             <Chip
               key={tag}
               label={tag}
-              onClick={() => handleTagClick(tag)}
+              onClick={() => selectTag(tag)}
               color={
                 justUploadedBirdId || showAll
                   ? "default"

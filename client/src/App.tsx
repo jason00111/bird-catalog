@@ -6,6 +6,9 @@ import Filters from "./components/Filters";
 import { Bird } from "../../common/types";
 import { list } from "./api";
 
+// Allow multiple tags to be selected at once
+const MULTI_SELECT = false;
+
 export type Tags = Set<string>;
 export type SyncWithDB = () => Promise<unknown>;
 export type JustUploadedBirdId = string | null;
@@ -43,6 +46,26 @@ function App() {
     });
   };
 
+  function selectTag(tag: string) {
+    setShowAll(false);
+    setJustUploadedBirdId(null);
+
+    if (MULTI_SELECT) {
+      if (selectedTags.has(tag)) {
+        setSelectedTags((prevSelectedTags) => {
+          prevSelectedTags.delete(tag);
+
+          return new Set(selectedTags);
+        });
+      } else {
+        selectedTags.add(tag);
+        setSelectedTags(new Set(selectedTags));
+      }
+    } else {
+      setSelectedTags(new Set([tag]));
+    }
+  }
+
   const birdsToDisplay = justUploadedBirdId
     ? birds.filter((bird) => bird.id === justUploadedBirdId)
     : showAll
@@ -58,16 +81,17 @@ function App() {
         <Filters
           allTags={allTags}
           selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
           showAll={showAll}
           setShowAll={setShowAll}
           justUploadedBirdId={justUploadedBirdId}
           setJustUploadedBirdId={setJustUploadedBirdId}
+          selectTag={selectTag}
         />
         <BirdsGrid
           birds={birdsToDisplay}
           allTags={allTags}
           setAllTags={setAllTags}
+          selectTag={selectTag}
           syncWithDB={syncWithDB}
         />
         <AddBird
