@@ -1,3 +1,7 @@
+![Browsing photos of birds](https://raw.githubusercontent.com/jason00111/bird-catalog/main/readmeImages/demo1.gif)
+
+![Adding a label and uploading a photo](https://raw.githubusercontent.com/jason00111/bird-catalog/main/readmeImages/demo2.gif)
+
 # bird-catalog
 
 Full stack app to view, label, and upload pictures of birds.
