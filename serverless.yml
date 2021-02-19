@@ -1,13 +1,15 @@
 service: bird-catalog
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs12.x
   region: us-west-2
   environment:
-    TABLE_NAME: birds
-    IMAGES_BUCKET_NAME: bird-images-xxx
-    WEBSITE_BUCKET_NAME: bird-catalog
+    TABLE_NAME: ${env:TABLE_NAME}
+    IMAGES_BUCKET_NAME: ${env:IMAGES_BUCKET_NAME}
+    WEBSITE_BUCKET_NAME: ${env:WEBSITE_BUCKET_NAME}
   httpApi:
     cors: true
   iamRoleStatements:
@@ -18,19 +20,19 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
-      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.TABLE_NAME}
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${env:TABLE_NAME}
     - Effect: Allow
       Action:
         - "s3:PutObject"
         - "s3:PutObjectAcl"
-      Resource: arn:aws:s3:::${self:provider.environment.IMAGES_BUCKET_NAME}/*
+      Resource: arn:aws:s3:::${env:IMAGES_BUCKET_NAME}/*
 
 plugins:
   - fullstack-serverless
 
 custom:
   fullstack:
-    bucketName: ${self:provider.environment.WEBSITE_BUCKET_NAME}
+    bucketName: ${env:WEBSITE_BUCKET_NAME}
     distributionFolder: client/build
     singlePageApp: true
 
@@ -69,7 +71,7 @@ resources:
     birdsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.TABLE_NAME}
+        TableName: ${env:TABLE_NAME}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -82,7 +84,7 @@ resources:
     S3BucketBirds:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:provider.environment.IMAGES_BUCKET_NAME}
+        BucketName: ${env:IMAGES_BUCKET_NAME}
         CorsConfiguration:
           CorsRules:
             - AllowedHeaders:

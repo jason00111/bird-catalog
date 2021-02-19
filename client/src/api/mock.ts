@@ -4,50 +4,68 @@ const mockBirds: Bird[] = [
   {
     id: "00",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["robin"],
+      "https://upload.wikimedia.org/wikipedia/commons/4/45/Ploceus_velatus_beak_open.jpg",
+    tags: ["Southern Masked Weaver"],
   },
   {
     id: "01",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/2967dffc-da51-4a75-b122-fa1a772ebb27.jpg",
-    tags: ["robin", "swan"],
+      "https://upload.wikimedia.org/wikipedia/commons/4/4a/Red_billed_gull-02.jpg",
+    tags: ["Gull"],
   },
   {
     id: "02",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["goose"],
+      "https://upload.wikimedia.org/wikipedia/commons/2/24/Male_mallard_duck_2.jpg",
+    tags: ["Duck", "Mallard"],
   },
   {
     id: "03",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["bluejay"],
+      "https://upload.wikimedia.org/wikipedia/commons/0/06/NZ_North_Island_Robin-3.jpg",
+    tags: ["New Zealand North Island Robin"],
   },
   {
     id: "04",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["finch"],
+      "https://upload.wikimedia.org/wikipedia/commons/9/97/Swallow-tailed_bee-eater_%28Merops_hirundineus_chrysolaimus%29.jpg",
+    tags: ["Swallow-Tailed Bee-Eater"],
   },
   {
     id: "05",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["chickadee", "coco"],
+      "https://upload.wikimedia.org/wikipedia/commons/b/b9/Estornino_de_El_Cabo_%28Lamprotornis_nitens%29%2C_parque_nacional_Kruger%2C_Sud%C3%A1frica%2C_2018-07-25%2C_DD_56.jpg",
+    tags: ["Cape Starling", "Starling"],
   },
   {
     id: "06",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["yellow"],
+      "https://upload.wikimedia.org/wikipedia/commons/b/ba/Solsort.jpg",
+    tags: ["Blackbird"],
   },
   {
     id: "07",
     img:
-      "https://bird-images-xxx.s3-us-west-2.amazonaws.com/60fe7140-36ee-4eef-9b72-c112b89ea1e0.jpg",
-    tags: ["red"],
+      "https://upload.wikimedia.org/wikipedia/commons/5/51/Mandarin.duck.arp.jpg",
+    tags: ["Mandarin Duck", "Duck"],
+  },
+  {
+    id: "08",
+    img:
+      "https://upload.wikimedia.org/wikipedia/commons/3/34/Grey_duck_and_spotbill_duck%2C_Yokohama_City%3B_May_2013_%2805%29.jpg",
+    tags: ["Duck"],
+  },
+  {
+    id: "09",
+    img:
+      "https://upload.wikimedia.org/wikipedia/commons/7/72/Common_blackbird_%28Turdus_merula_mauretanicus%29_female.jpg",
+    tags: ["Blackbird"],
+  },
+  {
+    id: "10",
+    img:
+      "https://upload.wikimedia.org/wikipedia/commons/c/c8/Asian_pied_starlings_%28Gracupica_contra%29.jpg",
+    tags: ["Asian Pied Starling", "Starling"],
   },
 ];
 

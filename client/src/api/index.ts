@@ -24,6 +24,14 @@ export function list(): Promise<Bird[]> {
   return fetch(BIRDS_ENDPOINT_URL)
     .then((response) => response.json())
     .then((data) => {
+      if (!data.birds) {
+        if (data.message) {
+          throw new Error(`Problem getting birds: ${data.message}`);
+        }
+
+        throw new Error(`Problem getting birds: ${data}`);
+      }
+
       return data.birds;
     });
 }

@@ -16,7 +16,9 @@
     "typescript": "^4.1.3"
   },
   "scripts": {
-    "deploy": "tsc && cd client && yarn build && cd .. && sls deploy --no-confirm",
-    "deploy:client": "cd client && yarn build && cd .. && sls client deploy --no-confirm"
+    "deploy": "tsc && yarn build:client && sls deploy --no-confirm",
+    "deploy:client": "yarn build:client && sls client deploy --no-confirm",
+    "build:client": "cd client && set -o allexport && source ../.env && set +o allexport && yarn build && cd ..",
+    "start:client": "cd client && set -o allexport && source ../.env && set +o allexport && yarn start && cd .."
   }
 }
